@@ -1,0 +1,9 @@
+%html
+%head
+	%title Загрузка файла вручную
+%body
+	%h3 UPLOADER_TEXT
+	%form{:action => "/upload", :method => "post", :enctype => "multipart/form-data" }
+		%input{:type => "file", :name => "up_image"}
+		%br
+		%input{:type => "submit", :value => "UPLOAD_BTN_TEXT"}
