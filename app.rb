@@ -1,4 +1,7 @@
 require 'sinatra'
+require 'digest/md5'
+require 'json'
+
 set :bind, '0.0.0.0'
 set :views, settings.root + '/views'
 get '/' do
@@ -10,14 +13,24 @@ get '/upload' do
 end	
 
 post '/upload' do
+	response = {
+		:filename => nil, #accessible file name
+		:code => nil, #response code as in HTTP
+		:message => nil #human-readable
+	}
 	if params['up_image'][:type] != "image/png"
-		return "File type error... only image/png's are allowed"
+		response[:code] = 415 # Unsupported Media Type
+		response[:message] = "Invalid image type. Only image/png is supported"
+		return response.to_json
 	end
-	filename = 'public/'+params['up_image'][:filename]
-	File.open('public/' + params['up_image'][:filename], 'w') do |f|
+	filename = Digest::MD5.hexdigest(File.read(params['up_image'][:tempfile])) + ".png"
+	File.open('public/'+filename, 'w') do |f|
 		f.write(params['up_image'][:tempfile].read)
 	end
-	return filename
+	response[:filename] = filename
+	response[:code] = 200 #OK
+	response[:message] = "Image was successfully uploaded"
+	return response.to_json
 end
 
 get '/image/:filename' do
