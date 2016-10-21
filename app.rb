@@ -40,3 +40,12 @@ get '/image/:filename' do
 		"No such image"
 	end
 end
+
+get '/test' do
+	file = File.read('test/test.png')
+	filename = Digest::MD5.hexdigest(file)+'.png'
+	File.open('public/tmp/'+filename, 'w') do |f|
+		f.write(file)
+	end
+	haml :image, :locals => {:image => '/tmp/'+filename }
+end
