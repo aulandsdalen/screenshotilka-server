@@ -1,13 +1,36 @@
+!!!
 %html
-%head
-	%link{:rel => :stylesheet, :type => "text/css", :href => "/css/bootstrap.css"}
+	%link{:rel => "stylesheet", :type => "text/css", :href => "/css/bootstrap.css"}
+	%link{:rel => "stylesheet", :type => "text/css", :href => "/css/jumbotron-narrow.css"}
 	%meta{:charset => :utf8}
+	%title Скриншотилка
 %body
-	%h3 Скриншотилка
-	%p Скачать
-	%ul
-		%li для Windows 
-		%li исходники
-	%a{:href => "/upload"} загрузить вручную
-	%hr/
-	%small РПО "РязаньИнформСпецАльянсКоннектКошмарТелекомВинда-М Партнершип"
+.container
+	.jumbotron
+		%h1 Скриншотилка
+		%p.lead Удобное приложение для сохранения скриншотов на сервер (и серверная часть :-)
+		%p
+			%a{:href => "/download", :class => "btn btn-lg btn-primary", :role => "button"} Скачать
+	.row.marketing
+		.col-md-6
+			%h4 Нативность
+			%p Приложение написано на самом настоящем&nbsp;.Net &mdash; никаких отвратительных Qt!
+		.col-md-6
+			%h4 Простота
+			%p Нажимаешь Print Screen и оно просто работает
+	.row.marketing
+		.col-md-6
+			%h4 Гибкость
+			%p Настраивается практически все*
+		.col-md-6
+			%h4 Современные технологии и на сервере
+			%p Никакого б-гомерзкого PHP! Сервер написан на замечательном Ruby
+	.row.marketing
+		.col-md-6
+			%h4 Опенсорс
+			%p На гитхабе есть и <a href="">клиент</a>, и <a href="">сервер</a>
+		.col-md-6
+			%h4 Написать в спортлото
+			%p Хочется новых функций, нашел ошибку или показалось, что Скриншотилка притесняет твои права? Напиши нам!
+	%footer.footer
+		%small * &mdash; Производитель рекомендует придерживаться заводских значений
