@@ -4,6 +4,10 @@ require 'json'
 
 set :bind, '0.0.0.0'
 set :views, settings.root + '/views'
+set :version, "git " + `git rev-parse --short HEAD`.chomp
+set :url, "localhost"
+set :upload_dir, "/upload"
+
 get '/' do
 	haml :index
 end
@@ -41,11 +45,12 @@ get '/image/:filename' do
 	end
 end
 
-get '/test' do
-	file = File.read('test/test.png')
-	filename = Digest::MD5.hexdigest(file)+'.png'
-	File.open('public/tmp/'+filename, 'w') do |f|
-		f.write(file)
-	end
-	haml :image, :locals => {:image => '/tmp/'+filename }
+get '/info' do
+	response = {
+		:version => settings.version,
+		:url => settings.url, 
+		:upload_dir => settings.upload_dir,
+		:server_name => nil
+	}
+	response.to_json
 end
