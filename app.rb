@@ -55,5 +55,5 @@ get '/info' do
 		:upload_dir => settings.upload_dir,
 		:server_name => settings.server_name
 	}
-	response.to_json
+	return response.to_json
 end
