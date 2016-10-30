@@ -1,14 +1,21 @@
 require 'sinatra'
 require 'digest/md5'
 require 'json'
+require './helpers.rb'
 
 set :bind, '0.0.0.0'
 set :views, settings.root + '/views'
+set :version, "git " + `git rev-parse --short HEAD`.chomp
+set :url, "localhost"
+set :upload_dir, "/upload"
+set :server_name, "Screenshotilka Test Server"
+
 get '/' do
 	haml :index
 end
 
-get '/upload' do 
+get '/upload' do
+	protected!
 	haml :upload
 end	
 
@@ -39,4 +46,14 @@ get '/image/:filename' do
 	else
 		"No such image"
 	end
+end
+
+get '/info' do
+	response = {
+		:version => settings.version,
+		:url => settings.url, 
+		:upload_dir => settings.upload_dir,
+		:server_name => settings.server_name
+	}
+	return response.to_json
 end
